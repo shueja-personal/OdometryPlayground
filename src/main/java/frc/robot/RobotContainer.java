@@ -7,14 +7,22 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.util.OdometryManager;
 import io.github.oblarg.oblog.annotations.Log;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.NetworkButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,17 +32,25 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  /*
+  DrivebaseS m_drivebase = new DrivebaseS();
+  TurretS m_turret = new TurretS();
+  ShooterS m_shooter = new ShooterS();
+  */
 
   @Log
   Field2d m_field = new Field2d();
 
   /**
    * Change this parameter for the current pose in meters from your odometry.
+   * 
    */
-  private final OdometryManager m_odometryManager = new OdometryManager(m_field::getRobotPose);
+  private final OdometryManager m_odometryManager = new OdometryManager(m_field::getRobotPose); //m_drivebaseS::getRobotPose
+
+  @Log
+  Command addMeasurementCommand = new InstantCommand(
+        ()->{m_odometryManager.addVisionMeasurement(2, Math.PI/4);});
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,6 +64,10 @@ public class RobotContainer {
     m_field.getObject("target").setPose(
         m_odometryManager.getTargetPose()
       );
+    /*
+    m_turretS.trackTo(m_odometryManager.getRotationOffset());
+    m_shooterS.setSpeed(ShooterS.getRPMForDistance(m_odometryManager.getDistance()));
+     */
  
   }
 
@@ -57,7 +77,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -66,6 +87,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return new WaitCommand(0);
   }
 }

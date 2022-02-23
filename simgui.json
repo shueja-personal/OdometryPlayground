@@ -5,10 +5,17 @@
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/Shuffleboard/OdometryManager/m_field": "Field2d",
+      "/Shuffleboard/RobotContainer/addMeasurementCommand": "Command",
+      "/Shuffleboard/RobotContainer/m_field": "Field2d",
       "/SmartDashboard/field": "Field2d"
     },
     "windows": {
-      "/Shuffleboard/OdometryManager/m_field": {
+      "/Shuffleboard/RobotContainer/addMeasurementCommand": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/Shuffleboard/RobotContainer/m_field": {
         "window": {
           "visible": true
         }
@@ -18,6 +25,15 @@
   "NetworkTables": {
     "Shuffleboard": {
       "OdometryManager": {
+        "m_field": {
+          "open": true
+        },
+        "open": true
+      },
+      "RobotContainer": {
+        "addMeasurementCommand": {
+          "open": true
+        },
         "m_field": {
           "open": true
         },

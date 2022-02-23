@@ -63,6 +63,18 @@ public class OdometryManager implements Loggable {
     }
 
     /**
+     * Adjusts the transform to the hub based on a vision measurement,
+     * including the distance from the center of the robot to the vision tape,
+     * and the radian offset between the robot heading and the target.
+     * @param distanceToTapeMeters
+     * @param rotationOffsetRadians
+     */
+    public void addVisionMeasurement(double distanceToTapeMeters, double rotationOffsetRadians) {
+        m_transformToHub = new Translation2d(distanceToTapeMeters, new Rotation2d(rotationOffsetRadians).plus(m_currPoseMeters.getRotation()));
+        System.out.println("added");
+    }
+
+    /**
      * Get the distance to the center of the hub.
      * @return the distance to the center of the hub.
      */
@@ -75,8 +87,9 @@ public class OdometryManager implements Loggable {
      * Get the rotation error between the robot's heading and the vector to the hub.
      * Positive offset means the robot is pointing clockwise of where it would be aiming at the target.
      */
-    @Log
+    @Log(methodName = "getRadians")
     public Rotation2d getRotationOffset() {
+
         return new Rotation2d(Math.atan2(m_transformToHub.getY(), m_transformToHub.getX()))
             .minus(m_lastPoseMeters.getRotation());
     }
