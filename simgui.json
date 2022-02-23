@@ -1,0 +1,29 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/ExampleSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/Shuffleboard/OdometryManager/m_field": "Field2d",
+      "/SmartDashboard/field": "Field2d"
+    },
+    "windows": {
+      "/Shuffleboard/OdometryManager/m_field": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "Shuffleboard": {
+      "OdometryManager": {
+        "m_field": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    }
+  }
+}
